@@ -3,10 +3,11 @@ $(function(){
   $('.chatBox').submit(function(event){
     event.preventDefault();
     var message = $("#m").val();
-    var newMessage = $("<li></li>");
-    newMessage = newMessage.text(message);
-    $("#messages").append(newMessage);
     socket.emit('chat message', message);
     $("#m").val("");
   });
+
+  socket.on('chat message', function(data){
+    $("#messages").append(`<li>${data}</li>`);
+  }); 
 });
